@@ -6,48 +6,64 @@ import style from "./TripList.module.css";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
-// Mui Icons
-import SearchIcon from "@material-ui/icons/Search";
-
-// const useStyles = makeStyles({
-//   card: {
-//     minWidth: 275
-//   },
-//   bullet: {
-//     display: "inline-block",
-//     margin: "0 2px",
-//     transform: "scale(0.8)"
-//   },
-//   title: {
-//     fontSize: 14
-//   },
-//   pos: {
-//     marginBottom: 12
-//   }
-// });
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 
 class TripList extends Component {
   state = {
-    initialItems: [],
-    item: [],
-    isEmpty: false
+    initialItems: this.props.content,
+    items: this.props.content,
+    isEmpty: false,
+    sortFlag: false
   };
-  toggleSortfromName = e => {
-    e.preventDefault();
+  toggleSortfromNameDown = () => {
     const { initialItems } = this.state;
-    console.log(initialItems);
     let newList = initialItems;
     this.setState({
-      initialItems: newList.sort((a, b) => a.toName > b.toName)
+      initialItems: newList.sort((a, b) =>
+        a.fromName < b.fromName ? 1 : b.fromName < a.fromName ? -1 : 0
+      ),
+      sortFlag: !this.state.sortFlag
+    });
+  };
+  toggleSortfromNameUp = () => {
+    const { initialItems } = this.state;
+    let newList = initialItems;
+    this.setState({
+      initialItems: newList.sort((a, b) =>
+        a.fromName > b.fromName ? 1 : b.fromName > a.fromName ? -1 : 0
+      ),
+      sortFlag: !this.state.sortFlag
+    });
+  };
+  toggleSorttoNameDown = () => {
+    const { initialItems } = this.state;
+    let newList = initialItems;
+    this.setState({
+      initialItems: newList.sort((a, b) =>
+        a.toName < b.toName ? 1 : b.toName < a.toName ? -1 : 0
+      ),
+      sortFlag: !this.state.sortFlag
+    });
+  };
+  toggleSortoNameUp = () => {
+    const { initialItems } = this.state;
+    let newList = initialItems;
+    this.setState({
+      initialItems: newList.sort((a, b) =>
+        a.toName > b.toName ? 1 : b.toName > a.toName ? -1 : 0
+      ),
+      sortFlag: !this.state.sortFlag
     });
   };
   filterList = event => {
     let items = this.state.initialItems;
+    const e = event.target.value.toLowerCase();
     items = items.filter(item => {
       return (
-        item.fromName.toLowerCase().search(event.target.value.toLowerCase()) !==
-        -1
+        item.toName.toLowerCase().includes(e) ||
+        item.toName.toLowerCase().includes(e)
       );
     });
     if (items.length === 0) {
@@ -57,25 +73,59 @@ class TripList extends Component {
     }
     this.setState({ items: items });
   };
-  UNSAFE_componentWillMount = () => {
-    this.setState({
-      initialItems: this.props.content,
-      items: this.props.content
-    });
-  };
+
   render() {
     return (
       <div>
-        <form>
-          <button onClick={this.toggleSortfromName}>Sort</button>
-          <SearchIcon />
-          <input
-            type="text"
-            placeholder="Where you need"
+        <div className={style.nav}>
+          <Button
+            onClick={
+              this.state.sortFlag
+                ? this.toggleSortfromNameUp
+                : this.toggleSortfromNameDown
+            }
+            variant="contained"
+            color="primary"
+            style={{ margin: 20 }}
+          >
+            Sort
+          </Button>
+          <TextField
+            id="outlined-search"
+            label="Search field"
+            type="search"
+            margin="normal"
+            variant="outlined"
             onChange={this.filterList}
           />
-          {this.state.isEmpty ? <div>No results found.</div> : null}
-        </form>
+          {this.state.isEmpty ? (
+            <Box
+              bgcolor="grey.700"
+              color="white"
+              p={1}
+              position="absolute"
+              textAlign="center"
+              top="19%"
+              left="43%"
+              zIndex="tooltip"
+              boxShadow={3}
+            >
+              <p>No results found</p>
+            </Box>
+          ) : null}
+          <Button
+            onClick={
+              this.state.sortFlag
+                ? this.toggleSortoNameUp
+                : this.toggleSorttoNameDown
+            }
+            variant="contained"
+            color="primary"
+            style={{ margin: 20 }}
+          >
+            Sort toname
+          </Button>
+        </div>
         {this.state.items.map(item => {
           return (
             <Card key={shortid.generate()} className={style.card}>
@@ -84,10 +134,10 @@ class TripList extends Component {
                   Trip
                 </Typography>
                 <Typography variant="h5" component="h2">
-                  From:{item.fromName}
+                  From: {item.fromName}
                 </Typography>
                 <Typography variant="h5" component="h2">
-                  To:{item.toName}
+                  To: {item.toName}
                 </Typography>
                 <Typography variant="body2" component="p">
                   Dispatch: {item.departAt}

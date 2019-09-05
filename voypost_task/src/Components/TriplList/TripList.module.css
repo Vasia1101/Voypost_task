@@ -9,7 +9,14 @@
   margin: 10px;
   text-align: left;
 }
-.bullet {
+.nav {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+/* .bullet {
   display: inline-block;
   margin: 0 2px;
   transform: scale(0.8);
@@ -20,4 +27,4 @@
 }
 .pos {
   margin-bottom: 12px;
-}
+} */
