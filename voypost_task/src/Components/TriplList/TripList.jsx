@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import shortid from "shortid";
-import style from "./TripList.module.css";
 
+// style
+import style from "./TripList.module.css";
 // MUI Stuff
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -17,46 +18,23 @@ class TripList extends Component {
     isEmpty: false,
     sortFlag: false
   };
-  toggleSortfromNameDown = () => {
+  toggleSort = (key) => {
     const { initialItems } = this.state;
+
     let newList = initialItems;
     this.setState({
-      initialItems: newList.sort((a, b) =>
-        a.fromName < b.fromName ? 1 : b.fromName < a.fromName ? -1 : 0
-      ),
+      initialItems: this.state.sortFlag ? this.sortUp(key, newList) : this.sortDown(key, newList),
       sortFlag: !this.state.sortFlag
     });
   };
-  toggleSortfromNameUp = () => {
-    const { initialItems } = this.state;
-    let newList = initialItems;
-    this.setState({
-      initialItems: newList.sort((a, b) =>
-        a.fromName > b.fromName ? 1 : b.fromName > a.fromName ? -1 : 0
-      ),
-      sortFlag: !this.state.sortFlag
-    });
-  };
-  toggleSorttoNameDown = () => {
-    const { initialItems } = this.state;
-    let newList = initialItems;
-    this.setState({
-      initialItems: newList.sort((a, b) =>
-        a.toName < b.toName ? 1 : b.toName < a.toName ? -1 : 0
-      ),
-      sortFlag: !this.state.sortFlag
-    });
-  };
-  toggleSortoNameUp = () => {
-    const { initialItems } = this.state;
-    let newList = initialItems;
-    this.setState({
-      initialItems: newList.sort((a, b) =>
-        a.toName > b.toName ? 1 : b.toName > a.toName ? -1 : 0
-      ),
-      sortFlag: !this.state.sortFlag
-    });
-  };
+  sortDown = (key, newList) =>  newList.sort((a, b) =>
+  a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0
+  );
+
+  sortUp = (key, newList) =>  newList.sort((a, b) =>
+  a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0
+  );
+
   filterList = event => {
     let items = this.state.initialItems;
     const e = event.target.value.toLowerCase();
@@ -80,15 +58,13 @@ class TripList extends Component {
         <div className={style.nav}>
           <Button
             onClick={
-              this.state.sortFlag
-                ? this.toggleSortfromNameUp
-                : this.toggleSortfromNameDown
+              () => this.toggleSort("fromName")
             }
             variant="contained"
             color="primary"
             style={{ margin: 20 }}
           >
-            Sort
+            Sort by dispatch
           </Button>
           <TextField
             id="outlined-search"
@@ -109,21 +85,20 @@ class TripList extends Component {
               left="43%"
               zIndex="tooltip"
               boxShadow={3}
+              borderRadius={10}
             >
               <p>No results found</p>
             </Box>
           ) : null}
           <Button
-            onClick={
-              this.state.sortFlag
-                ? this.toggleSortoNameUp
-                : this.toggleSorttoNameDown
+            onClick={() => this.toggleSort("toName")
+              
             }
             variant="contained"
             color="primary"
             style={{ margin: 20 }}
           >
-            Sort toname
+            Sort by delivery
           </Button>
         </div>
         {this.state.items.map(item => {

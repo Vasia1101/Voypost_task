@@ -1,14 +1,16 @@
 import React from "react";
 import "./App.css";
+
+// get data
 import TripList from "./Components/TriplList/TripList";
 
-import TripsData from "./data/trips.json";
+import tripsData from "./data/trips.json";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header"> Voypost App Search</header>
-      <TripList content={TripsData} />
+      <TripList content={tripsData} />
     </div>
   );
 }
