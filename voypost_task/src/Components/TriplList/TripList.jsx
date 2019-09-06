@@ -18,29 +18,29 @@ class TripList extends Component {
     isEmpty: false,
     sortFlag: false
   };
-  toggleSort = (key) => {
+  toggleSort = key => {
     const { initialItems } = this.state;
 
     let newList = initialItems;
     this.setState({
-      initialItems: this.state.sortFlag ? this.sortUp(key, newList) : this.sortDown(key, newList),
+      initialItems: this.state.sortFlag
+        ? this.sortUp(key, newList)
+        : this.sortDown(key, newList),
       sortFlag: !this.state.sortFlag
     });
   };
-  sortDown = (key, newList) =>  newList.sort((a, b) =>
-  a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0
-  );
+  sortDown = (key, newList) =>
+    newList.sort((a, b) => (a[key] < b[key] ? 1 : b[key] < a[key] ? -1 : 0));
 
-  sortUp = (key, newList) =>  newList.sort((a, b) =>
-  a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0
-  );
+  sortUp = (key, newList) =>
+    newList.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0));
 
   filterList = event => {
     let items = this.state.initialItems;
     const e = event.target.value.toLowerCase();
     items = items.filter(item => {
       return (
-        item.toName.toLowerCase().includes(e) ||
+        item.fromName.toLowerCase().includes(e) ||
         item.toName.toLowerCase().includes(e)
       );
     });
@@ -57,9 +57,7 @@ class TripList extends Component {
       <div>
         <div className={style.nav}>
           <Button
-            onClick={
-              () => this.toggleSort("fromName")
-            }
+            onClick={() => this.toggleSort("fromName")}
             variant="contained"
             color="primary"
             style={{ margin: 20 }}
@@ -91,9 +89,7 @@ class TripList extends Component {
             </Box>
           ) : null}
           <Button
-            onClick={() => this.toggleSort("toName")
-              
-            }
+            onClick={() => this.toggleSort("toName")}
             variant="contained"
             color="primary"
             style={{ margin: 20 }}
