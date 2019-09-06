@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Voypost_task/static/css/main.fb4b4ffd.chunk.css",
-    "main.js": "/Voypost_task/static/js/main.d4336582.chunk.js",
-    "main.js.map": "/Voypost_task/static/js/main.d4336582.chunk.js.map",
+    "main.js": "/Voypost_task/static/js/main.9f77ba08.chunk.js",
+    "main.js.map": "/Voypost_task/static/js/main.9f77ba08.chunk.js.map",
     "runtime~main.js": "/Voypost_task/static/js/runtime~main.3eedd10d.js",
     "runtime~main.js.map": "/Voypost_task/static/js/runtime~main.3eedd10d.js.map",
     "static/js/2.cf6c8d49.chunk.js": "/Voypost_task/static/js/2.cf6c8d49.chunk.js",
     "static/js/2.cf6c8d49.chunk.js.map": "/Voypost_task/static/js/2.cf6c8d49.chunk.js.map",
     "index.html": "/Voypost_task/index.html",
-    "precache-manifest.a527068bec9a2dd9c6636d837491963b.js": "/Voypost_task/precache-manifest.a527068bec9a2dd9c6636d837491963b.js",
+    "precache-manifest.5978dfd3bd7ffb6ba7b3763aaa4550a2.js": "/Voypost_task/precache-manifest.5978dfd3bd7ffb6ba7b3763aaa4550a2.js",
     "service-worker.js": "/Voypost_task/service-worker.js",
     "static/css/main.fb4b4ffd.chunk.css.map": "/Voypost_task/static/css/main.fb4b4ffd.chunk.css.map"
   }

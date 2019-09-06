@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Voypost_task/precache-manifest.a527068bec9a2dd9c6636d837491963b.js"
+  "/Voypost_task/precache-manifest.5978dfd3bd7ffb6ba7b3763aaa4550a2.js"
 );
 
 self.addEventListener('message', (event) => {
